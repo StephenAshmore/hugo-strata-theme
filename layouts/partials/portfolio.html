@@ -1,12 +1,18 @@
 {{ "<!-- portfolio -->" | safeHTML }}
 <section>
-	{{ with .Site.Params.portfolio.title }}<h2>{{ . | markdownify }}</h2>{{ end }}
 	<div class="row">
-		{{ range .Site.Params.portfolio.gallery }}
+		{{ range first 6 .Data.Pages.ByWeight}}
 		<article class="6u 12u$(xsmall) work-item">
-			<a href="{{ $.Site.BaseURL }}images/{{ .image }}" class="image fit thumb"><img src="{{ $.Site.BaseURL }}images/{{ .thumb }}" alt="" /></a>
-			<h3>{{ .title | markdownify }}</h3>
-			<p>{{ .description | markdownify }}</p>
+			<a href='{{ .Permalink }}'>
+				<object type="image/jpg">
+					<img src="/images/thumbs/{{ .Title }}" />
+				</object>
+			</a>
+			<h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
+			<div class="post-meta">{{ .Date.Format "Mon, Jan 2, 2006" }}  </div>
+			<i>{{ .Description }}</i>
+
+			<a href='{{ .Permalink }}'><nobr>Read more →</nobr></a>
 		</article>
 		{{ end }}
 	</div>
